@@ -15,11 +15,14 @@ import { useDispatch } from 'react-redux'
 import { signOut } from "firebase/auth";
 import {logout} from "./features/userSlice";
 import { auth } from "./firebase";
+import {selectUser} from "./features/userSlice"
+import { useSelector } from 'react-redux';
 
 
 function Header() {
 
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   const logoutofApp = () => {
     dispatch(logout());
@@ -50,8 +53,8 @@ function Header() {
         <HeaderOption Icon ={ChatIcon} title="Chat" />
         <HeaderOption Icon ={NotificationsIcon} title="Notifications" />
         <HeaderOption 
-        avatar={dog} 
-        title="me"
+        avatar={dog}  
+        title={user.displayName}
         onClick= {logoutofApp}/>
       </div>
     </div>
@@ -60,3 +63,4 @@ function Header() {
  
 export default Header
 
+// {user.photoURL} 

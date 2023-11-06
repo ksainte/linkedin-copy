@@ -12,6 +12,7 @@
     width: 100%;
     position : sticky;
     z-index:999;
+    background: white;
 }
 
 /* because you want the whole thing horizontacly */

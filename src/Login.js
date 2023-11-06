@@ -8,6 +8,7 @@ import { auth } from "./firebase";
 import { useDispatch } from 'react-redux'
 import {login} from "./features/userSlice";
 import { updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 
@@ -21,7 +22,8 @@ const[picture, setPicture]= useState("");
 const dispatch = useDispatch();
 
 
-const register =() => {
+const register =(e) => {
+    e.preventDefault();
     if (!name){
         return alert("Please enter a full name");
     }
@@ -42,22 +44,58 @@ createUserWithEmailAndPassword(auth, email, password)
 updateProfile(u, {
     displayName: name,
     photoURL: picture,
-}).then(()=> {
+})
+.then(()=> {
+    console.log('userCredential:', userCredential);
+ console.log('userCredential name:', u.displayName);//ca va display grave a update
+ console.log('userCredential name:', u.email);
     dispatch(
         login({
-        email: u.email,
+        email: email,//u.email cree apd de email
         uid : u.uid,
-        displayName: name,
-        photoURL: picture,
+        displayName: name,//ou u.displayName
+        photoURL: picture,// //ou u.photoURL photoURL
     }))
 })
 }).catch((error) => alert(error));
 }
 
+// createUserWithEmailAndPassword(auth, email, password)
+// .then((userCredential) => {
+//  const u = userCredential.user;
+//  console.log('userCredential:', userCredential);
+//  console.log('userCredential name:', u.displayName);
+//  console.log('userCredential name:', u.email);// bien evidemment aucun fonctionnera ss update
+//     dispatch(
+//         login({
+//         email: email,
+//         uid : u.uid,
+//         displayName: name,
+//         photoURL: picture,
+//     }))
+// })
+// .catch((error) => alert(error));
+// }
 
-const loginToApp =() => {
+const loginToApp =(e) => {
+    e.preventDefault();
 
-};
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    const u = userCredential.user;
+        dispatch(
+            login({
+            email: email,//uid et email sont lies, pas de sign in dans email sans uid valide
+            uid : u.uid,
+            displayName: u.displayName,
+            photoURL: u.photoURL,//et pas picture!
+        }))
+        // console.log('userCredential name:', u.displayName); non si ss update car E pas
+        // par contre le dispatch update bien avec name et picture
+        // console.log('userCredential email:', u.email); fonctionne car email ds signin
+    })
+    .catch((error) => alert(error));
+}
 
   return (
     <div className='login'>
@@ -91,7 +129,7 @@ const loginToApp =() => {
         type='password'/>
         <button
         type='submit'
-        // onClick={loginToApp}
+        onClick={loginToApp}
         >Sign In</button>
      </form>
 

@@ -14,7 +14,7 @@ import { auth } from "./firebase";
 import { useDispatch } from 'react-redux'
 import {login} from "./features/userSlice";
 import {logout} from "./features/userSlice";
-import { updateProfile } from "firebase/auth";
+import Widgets from "./Widgets";
 
 function App() {
 
@@ -38,21 +38,41 @@ function App() {
   }, []);
 
   const user = useSelector(selectUser)
+  // return (
+  //   <div className="App">
+  //     <Header />
+
+  //     {!user ? (
+  //       <Login />
+  //     ) : (
+  //     <div className="App_body">
+  //       <Sidebar/>
+  //       <Feed/>
+  //       <Widgets/>
+  //     </div>
+  //     )}
+  //   </div>
+  // );
   return (
     <div className="App">
-      <Header />
-
-      {!user ? (
-        <Login />
+      {user ? (
+        <>
+          <Header />
+          <div className="App_body">
+            <Sidebar />
+            <Feed />
+            <Widgets />
+          </div>
+        </>
       ) : (
-      <div className="App_body">
-        <Sidebar/>
-        <Feed/>
-          {/* Widgets */}
-      </div>
+        <Login />
       )}
     </div>
   );
 }
+
+
+
+
 
 export default App;

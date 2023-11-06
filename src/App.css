@@ -1,7 +1,7 @@
 /* so the app is in a column */
 .App {
     /* border: solid blue; */
-    background-color: rgb(255, 249, 249);
+    background-color: rgb(235, 233, 233);
     display:flex;
     flex-direction: column;
     align-items:flex-center;
@@ -16,6 +16,10 @@
 /* so the body is in a raw */
 .App_body{
   display:flex;
+  margin-top: 35px;
+  margin-left: 20px;
+  margin-right: 20px;
+  max-width: 1200px;
   /* border: solid blue; */
 }
 

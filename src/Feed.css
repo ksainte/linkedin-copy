@@ -1,7 +1,7 @@
 /* ok I see so 20px margin from the element to the left */
 .feed{
     flex:0.6;
-     border: solid blue;
+     /* border: solid blue; */
     margin : 0 20px;
     border-radius:10px;
     /* text-align: center; */
@@ -11,7 +11,7 @@
 and padding is the sep within the container  */
 .feed_inputContainer{
     background-color: white;
-    border: solid red;
+    /* border: solid red; */
     padding:10px;
     padding-bottom:10px;
     border-radius: 10px;
@@ -34,7 +34,9 @@ and padding is the sep within the container  */
 }
 
 .feed_input > form > input{
+    outline:none;
     border:none;
+    background: none;
     flex:1;
     margin-left:10px;
     outline-width: 0;
